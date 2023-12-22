@@ -1,20 +1,19 @@
 const display = document.getElementById("display");
-
+const oprList = ["+", "-", "*", "/", "%", "."];
 //Add Event Listeners
 document.querySelectorAll(".btn-row>button").forEach((e) => {
   e.addEventListener("click", function (f) {
     const { classList, innerText } = f.target;
-    console.log(classList, innerText);
     if (classList.contains("num")) {
-      //addNums(inner Text);
+      addNum(innerText);
     } else if (classList.contains("opr")) {
-      //addOpr(innerText);
+      addOpr(innerText);
     } else if (classList.contains("calc")) {
-      //calculate()
-    } else if (classList.contains("delete")) {
-      //Delete clicked del()
+      calc();
+    } else if (classList.contains("del")) {
+      del();
     } else if (classList.contains("clear")) {
-      //clear()
+      clear();
     }
   });
 });
@@ -46,14 +45,48 @@ document.addEventListener("keydown", function (k) {
 });
 
 function addNum(text) {
-  console.log(text);
+  const ruleA = display.innerHTML.length === 0 && text === ".";
+  if (!ruleA) {
+    display.innerHTML += text;
+  }
 }
 
 function addOpr(text) {
-  console.log(text);
+  const value = display.innerHTML;
+  const lastCharacter = value[value.length - 1];
+
+  //Don't add repeated operators and initially without numbers
+  if (lastCharacter !== text) {
+    if (value.length > 0) {
+      display.innerHTML += text;
+    }
+  }
+
+  //If last character is operator then replace it with new operator
+  if (oprList.includes(lastCharacter)) {
+    display.innerHTML = value.substring(0, value.length - 1) + text;
+  }
 }
 
 function clear() {
-  display.innerHTML = "0";
+  display.innerHTML = "";
 }
-function calc() {}
+function calc() {
+  const val = display.innerHTML;
+  let res;
+  try {
+    res = eval(val);
+  } catch (e) {
+    console.log(e);
+    res = "error";
+  }
+
+  display.innerHTML = res;
+}
+
+function del() {
+  const value = display.innerHTML;
+  if (value.length > 0) {
+    display.innerHTML = value.substring(0, value.length - 1);
+  }
+}

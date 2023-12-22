@@ -42,6 +42,7 @@
 .calc-btn:hover{
   width: 28px;
   height: 28px;
+  opacity: 1;
 }
 .calc-btn-equals{
   width: 80px;
