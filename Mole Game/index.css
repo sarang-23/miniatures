@@ -1,0 +1,75 @@
+* {
+  box-sizing: border-box;
+}
+.container {
+  width: 35%;
+  margin: 20px auto;
+}
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.header > button{
+  background-color: antiquewhite;
+  border: 1px solid black;
+  cursor: pointer;
+  width: 100px;
+  height: 30px;
+}
+.ground {
+  display: inline-flex;
+  flex: 1 1 25%;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10;
+}
+.wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  overflow: hidden;
+}
+
+#play-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.dirt,
+.mole {
+  position: absolute;
+  width: 100%;
+  padding-bottom : 100%;
+  left: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.dirt {
+  background-image: url("./dirt.avif");
+  z-index: 1;
+  background-position: center 113%;
+  top: 25px;
+}
+
+.mole {
+  background-image: url("./mole6.png");
+  transition: all 0.2s ease;
+  top: 100%;
+  background-position: bottom;
+  background-size: 73%;
+  z-index: 2;
+}
+
+.ground.active .mole {
+  top: -20px;
+}
