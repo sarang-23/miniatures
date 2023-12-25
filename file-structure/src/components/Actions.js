@@ -3,7 +3,13 @@ import { MdDriveFileRenameOutline } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { TYPE } from "../utils/constants";
 
-export const Action = ({ type, addFolder, addFile, rename, deleteItem }) => {
+export const Action = ({
+  type,
+  addFolder,
+  addFile,
+  onRenameClick,
+  onDeleteClick,
+}) => {
   return (
     <div className="actions">
       {type === TYPE.ROOT || type === TYPE.FOLDER ? (
@@ -21,14 +27,14 @@ export const Action = ({ type, addFolder, addFile, rename, deleteItem }) => {
         <></>
       )}
       {type !== TYPE.ROOT ? (
-        <span className="action" onClick={rename}>
+        <span className="action" onClick={onRenameClick}>
           <MdDriveFileRenameOutline />
         </span>
       ) : (
         <></>
       )}
       {type !== TYPE.ROOT ? (
-        <span className="action" onClick={deleteItem}>
+        <span className="action" onClick={onDeleteClick}>
           <MdDelete />
         </span>
       ) : (

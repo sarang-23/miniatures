@@ -1,7 +1,13 @@
 import { ListItem } from "./ListItem";
 
-export const List = ({ fileStructure, ids, level, add }) => {
-  console.log(fileStructure);
+export const List = ({
+  fileStructure,
+  ids,
+  level,
+  add,
+  rename,
+  deleteNode,
+}) => {
   return (
     <div className="list">
       {ids.map((itemId) => {
@@ -13,6 +19,8 @@ export const List = ({ fileStructure, ids, level, add }) => {
               fileStructure={fileStructure}
               level={level}
               add={add}
+              rename={rename}
+              deleteNode={deleteNode}
             />
           );
         }

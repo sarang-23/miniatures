@@ -19,10 +19,6 @@ export default function App() {
     setFileStructure({ [id]: rootNode });
   }, []);
 
-  const updateFileStructure = () => {
-    console.log("update");
-  };
-
   const add = (itemDetails) => {
     const id = Date.now();
     const node = {
@@ -41,19 +37,38 @@ export default function App() {
     setFileStructure(tempFileStructure);
   };
 
-  const rename = () => {};
-  const deleteItem = () => {};
+  const rename = (itemDetails) => {
+    let tempFileStructure = fileStructure;
+    tempFileStructure[itemDetails.id].name = itemDetails.name;
+    setFileStructure(tempFileStructure);
+  };
+
+  const deleteNode = (node) => {
+    let tempFileStructure = fileStructure;
+    tempFileStructure[node.parent].children.splice(
+      tempFileStructure[node.parent].children.indexOf(node.id, 1)
+    );
+    delete tempFileStructure[node.id];
+    console.log(tempFileStructure);
+  };
+
+  console.log(fileStructure);
 
   return (
     <div className="app">
-      <Header add={add} fileStructure={fileStructure} />
+      <Header
+        fileStructure={fileStructure}
+        add={add}
+        rename={rename}
+        deleteNode={deleteNode}
+      />
       <List
         add={add}
         rename={rename}
-        deleteItem={deleteItem}
         fileStructure={fileStructure}
         ids={Object.keys(fileStructure)}
         level={1}
+        deleteNode={deleteNode}
       />
     </div>
   );
