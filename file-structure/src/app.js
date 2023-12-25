@@ -23,14 +23,14 @@ export default function App() {
     console.log("update");
   };
 
-  const addFolder = (itemDetails) => {
+  const add = (itemDetails) => {
     const id = Date.now();
     const node = {
       id,
       name: itemDetails.name,
       parent: itemDetails.parent,
       children: [],
-      type: TYPE.FOLDER,
+      type: itemDetails.type,
       level: itemDetails.level,
     };
 
@@ -41,20 +41,14 @@ export default function App() {
     setFileStructure(tempFileStructure);
   };
 
-  const addFile = () => {};
   const rename = () => {};
   const deleteItem = () => {};
 
   return (
     <div className="app">
-      <Header
-        addFolder={addFolder}
-        addFile={addFile}
-        fileStructure={fileStructure}
-      />
+      <Header add={add} fileStructure={fileStructure} />
       <List
-        addFolder={addFolder}
-        addFile={addFile}
+        add={add}
         rename={rename}
         deleteItem={deleteItem}
         fileStructure={fileStructure}

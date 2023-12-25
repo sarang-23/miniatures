@@ -1,6 +1,6 @@
 import { ListItem } from "./ListItem";
 
-export const List = ({ fileStructure, addFolder, ids, level, addFolder }) => {
+export const List = ({ fileStructure, ids, level, add }) => {
   console.log(fileStructure);
   return (
     <div className="list">
@@ -10,9 +10,9 @@ export const List = ({ fileStructure, addFolder, ids, level, addFolder }) => {
             <ListItem
               key={itemId}
               itemDetails={fileStructure[itemId]}
-              addFolder={addFolder}
               fileStructure={fileStructure}
               level={level}
+              add={add}
             />
           );
         }

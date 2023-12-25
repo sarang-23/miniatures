@@ -1,11 +1,19 @@
 import { useState } from "react";
 import { Action } from "./Actions";
 import { List } from "./List";
+import { TYPE } from "../utils/constants";
 
-export const ListItem = ({ itemDetails, level, addFolder, fileStructure }) => {
+export const ListItem = ({ itemDetails, level, add, fileStructure }) => {
   const [newFileName, setNewFileName] = useState("");
   const [addNew, setAddNew] = useState(false);
-  const handleAddFolder = (e) => {
+  const [newFileType, setNewFileType] = useState("");
+
+  const onAddClick = (type) => {
+    setAddNew(true);
+    setNewFileName("");
+    setNewFileType(type);
+  };
+  const handleAdd = (e) => {
     const { key = "", keyCode = "", type = "" } = e;
     if (key == "Enter" || keyCode == 13 || type === "blur") {
       if (newFileName.length) {
@@ -13,14 +21,16 @@ export const ListItem = ({ itemDetails, level, addFolder, fileStructure }) => {
           parent: itemDetails.id,
           name: newFileName,
           level: level + 1,
+          type: newFileType,
         };
-        addFolder(node);
+        add(node);
         setAddNew(false);
       } else {
         setAddNew(false);
       }
     }
   };
+
   return (
     <div className="list-item-container">
       <div
@@ -30,10 +40,8 @@ export const ListItem = ({ itemDetails, level, addFolder, fileStructure }) => {
         <span className="file-name">{itemDetails.name}</span>
         <Action
           type={itemDetails.type}
-          addFolder={() => {
-            setAddNew(true);
-            setNewFileName("");
-          }}
+          addFolder={() => onAddClick(TYPE.FOLDER)}
+          addFile={() => onAddClick(TYPE.FILE)}
         />
       </div>
       {addNew ? (
@@ -45,8 +53,8 @@ export const ListItem = ({ itemDetails, level, addFolder, fileStructure }) => {
             type="text"
             value={newFileName}
             onChange={(e) => setNewFileName(e.target.value)}
-            onBlur={handleAddFolder}
-            onKeyDown={handleAddFolder}
+            onBlur={handleAdd}
+            onKeyDown={handleAdd}
             autoFocus
           ></input>
         </div>
@@ -58,7 +66,7 @@ export const ListItem = ({ itemDetails, level, addFolder, fileStructure }) => {
           fileStructure={fileStructure}
           ids={itemDetails.children}
           level={level + 1}
-          addFolder={addFolder}
+          add={add}
         />
       ) : (
         <></>
@@ -66,8 +74,3 @@ export const ListItem = ({ itemDetails, level, addFolder, fileStructure }) => {
     </div>
   );
 };
-/**
- * 1. isNew -> then show input box
- * 2. show - hide
- * 3. Hover - color change
- */

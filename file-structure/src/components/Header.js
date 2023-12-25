@@ -1,6 +1,6 @@
 import { ListItem } from "./ListItem";
 
-export const Header = ({ fileStructure, addFolder }) => {
+export const Header = ({ fileStructure, add }) => {
   const nodeIds = Object.keys(fileStructure);
   let rootId = "";
   if (fileStructure) {
@@ -14,7 +14,7 @@ export const Header = ({ fileStructure, addFolder }) => {
           <ListItem
             isNew={false}
             itemDetails={fileStructure[rootId]}
-            addFolder={addFolder}
+            add={add}
             level={0}
             fileStructure={fileStructure}
           />
