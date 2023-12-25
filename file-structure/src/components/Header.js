@@ -1,17 +1,27 @@
-import { TYPE } from "../utils/constants";
-import { Action } from "./Actions";
+import { ListItem } from "./ListItem";
 
-export const Header = ({ addFolder, addFile, fileStructure }) => {
-  const handleAddFolder = () => {
-    const nodeIds = Object.keys(fileStructure);
-    const parentDetails = {
-      isRoot: true,
-    };
-  };
+export const Header = ({ fileStructure, addFolder }) => {
+  const nodeIds = Object.keys(fileStructure);
+  let rootId = "";
+  if (fileStructure) {
+    rootId = nodeIds.filter((n) => fileStructure[n].parent === null)[0];
+  }
+
   return (
-    <div className="header">
-      <span>Files</span>
-      <Action type={TYPE.ROOT} addFolder={addFolder} addFile={addFile} />
-    </div>
+    <>
+      {rootId ? (
+        <div className="header">
+          <ListItem
+            isNew={false}
+            itemDetails={fileStructure[rootId]}
+            addFolder={addFolder}
+            level={0}
+            fileStructure={fileStructure}
+          />
+        </div>
+      ) : (
+        <></>
+      )}
+    </>
   );
 };
