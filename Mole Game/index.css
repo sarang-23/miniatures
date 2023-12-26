@@ -62,7 +62,7 @@
 }
 
 .mole {
-  background-image: url("./mole6.png");
+  background-image: url("./mole.png");
   transition: all 0.2s ease;
   top: 100%;
   background-position: bottom;
