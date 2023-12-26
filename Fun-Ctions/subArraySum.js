@@ -13,4 +13,18 @@ const printSubArrays = (arr, sum) => {
   }
 };
 
+const anySubarryAddsToZero = (arr) => {
+  const sumSet = new Set();
+  let sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i];
+    if (sum === 0 || sumSet.has(sum)) {
+      return true;
+    }
+    sumSet.add(sum);
+  }
+  return false;
+};
+
+console.log(anySubarryAddsToZero([3, 4, -7, 1, 3, 3, 1, -4]));
 printSubArrays([3, 4, -7, 1, 3, 3, 1, -4], 7);
