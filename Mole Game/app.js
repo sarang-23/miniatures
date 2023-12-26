@@ -4,6 +4,7 @@ let GAME_STATE = {
 };
 
 let currState = GAME_STATE.STOP;
+var score = 0;
 
 window.addEventListener("load", () => {
   const startBtn = document.getElementById("start");
@@ -15,20 +16,25 @@ window.addEventListener("load", () => {
     }
   });
   const grounds = document.querySelectorAll(".ground");
-  console.log(grounds);
-  console.log(grounds);
   grounds.forEach((ground) => {
     ground.addEventListener("click", (e) => {
       e.stopPropagation();
-      if (currState == GAME_STATE.START) {
-        console.log(e.target);
+      if (
+        currState == GAME_STATE.START &&
+        e.currentTarget.classList.contains("active")
+      ) {
+        score++;
+        updateScore(score);
       }
     });
   });
 });
 
-let interval;
+const updateScore = (updatedScore) => {
+  document.getElementById("score").innerHTML = updatedScore;
+};
 
+let interval;
 const toggleState = (state) => {
   const grounds = document.querySelectorAll(".ground");
   if (state == GAME_STATE.STOP) {
