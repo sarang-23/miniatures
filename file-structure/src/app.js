@@ -43,16 +43,31 @@ export default function App() {
     setFileStructure(tempFileStructure);
   };
 
+  const deleteNodeRecursive = (node, tempFileStructure) => {
+    if (tempFileStructure[node.id]?.children.length) {
+      tempFileStructure[node.id].children.forEach((c) =>
+        deleteNodeRecursive(
+          {
+            id: c,
+            parent: node.id,
+          },
+          tempFileStructure
+        )
+      );
+    }
+
+    delete tempFileStructure[node.id];
+    return tempFileStructure;
+  };
+
   const deleteNode = (node) => {
-    let tempFileStructure = fileStructure;
+    let tempFileStructure = JSON.parse(JSON.stringify(fileStructure));
+    tempFileStructure = deleteNodeRecursive(node, tempFileStructure);
     tempFileStructure[node.parent].children.splice(
       tempFileStructure[node.parent].children.indexOf(node.id, 1)
     );
-    delete tempFileStructure[node.id];
-    console.log(tempFileStructure);
+    setFileStructure(tempFileStructure);
   };
-
-  console.log(fileStructure);
 
   return (
     <div className="app">
@@ -60,14 +75,6 @@ export default function App() {
         fileStructure={fileStructure}
         add={add}
         rename={rename}
-        deleteNode={deleteNode}
-      />
-      <List
-        add={add}
-        rename={rename}
-        fileStructure={fileStructure}
-        ids={Object.keys(fileStructure)}
-        level={1}
         deleteNode={deleteNode}
       />
     </div>

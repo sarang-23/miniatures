@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Action } from "./Actions";
 import { List } from "./List";
 import { TYPE } from "../utils/constants";
+import { MdOutlineExpandMore } from "react-icons/md";
+import { FaAngleRight } from "react-icons/fa";
 
 export const ListItem = ({
   itemDetails,
@@ -16,6 +18,7 @@ export const ListItem = ({
   const [newFileType, setNewFileType] = useState("");
   const [editedName, setEditedName] = useState(itemDetails.name);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [showSubdirectory, setShowSubdirectory] = useState(true);
 
   const onAddClick = (type) => {
     setAddNew(true);
@@ -43,7 +46,7 @@ export const ListItem = ({
   };
 
   const handleDelete = () => {
-    deleteNode(itemDetails);
+    deleteNode({ id: itemDetails.id, parent: itemDetails.parent });
   };
   const performAction = (e) => {
     const { key = "", keyCode = "", type = "" } = e;
@@ -82,7 +85,23 @@ export const ListItem = ({
               onKeyDown={handleRename}
             ></input>
           ) : (
-            itemDetails.name
+            <span
+              className="file-name-details"
+              onClick={() => setShowSubdirectory(!showSubdirectory)}
+            >
+              {itemDetails.type !== TYPE.FILE ? (
+                showSubdirectory &&
+                itemDetails.children.length &&
+                itemDetails.type !== TYPE.FILE ? (
+                  <FaAngleRight />
+                ) : (
+                  <MdOutlineExpandMore />
+                )
+              ) : (
+                <></>
+              )}{" "}
+              {itemDetails.name}
+            </span>
           )}
         </span>
         <Action
@@ -110,7 +129,7 @@ export const ListItem = ({
       ) : (
         <></>
       )}
-      {itemDetails.children.length ? (
+      {itemDetails.children.length && showSubdirectory ? (
         <List
           fileStructure={fileStructure}
           ids={itemDetails.children}

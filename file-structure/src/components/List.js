@@ -11,7 +11,7 @@ export const List = ({
   return (
     <div className="list">
       {ids.map((itemId) => {
-        if (fileStructure[itemId].parent) {
+        if (fileStructure[itemId]?.parent) {
           return (
             <ListItem
               key={itemId}
