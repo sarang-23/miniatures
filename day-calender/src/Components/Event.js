@@ -6,6 +6,7 @@ export const Event = ({ eventData, allEvents, index }) => {
   const [left, setLeft] = useState(0);
   const [height, setHeight] = useState(50);
   const [width, setWidth] = useState(0);
+  const [zIndexVal, setZIndex] = useState(5);
 
   const convertArrToNum = (arr) => {
     return arr.map((a) => parseInt(a));
@@ -21,6 +22,7 @@ export const Event = ({ eventData, allEvents, index }) => {
     setWidth((1 / numOverlapping) * 100);
     setLeft(340 * (1 - 1 / numOverlapping));
     setHeight(calculateHeight());
+    setZIndex(numOverlapping + 5);
   }, []);
 
   const isOverlapping = (eventDetails) => {
@@ -72,7 +74,7 @@ export const Event = ({ eventData, allEvents, index }) => {
         width: `${width}%`,
         backgroundColor: color,
         position: "absolute",
-        zIndex: 5,
+        zIndex: `${zIndexVal}`,
         border: "0.5px solid white",
         borderRadius: "4px",
         color: "white",
