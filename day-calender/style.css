@@ -1,0 +1,33 @@
+body{
+  color: #333;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+}
+.calender-continer{
+  width: 400px;
+  border : 1px solid #f0f0f0;
+  padding: 20px;
+  margin: 50 auto;
+  height: 800px;
+  overflow: scroll;
+}
+.time-slot{
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+.starts-at{
+  position: absolute;
+  top:-7px;
+  left: 0;
+  z-index: 3;
+}
+.slot-container{
+  width: 85%;
+  height: 60px;
+  border-top: 1.2px solid #f0f0f0;
+  position: relative;
+}
+.event-title{
+  margin: 5px 0 5px 10px;
+}
