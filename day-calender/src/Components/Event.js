@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const Event = ({ eventData }) => {
+export const Event = ({ eventData, allEvents, index }) => {
   const { startTime, endTime, color, title } = eventData;
   const [top, setTop] = useState(0);
   const [left, setLeft] = useState(0);
@@ -12,8 +12,44 @@ export const Event = ({ eventData }) => {
   };
 
   useEffect(() => {
+    let numOverlapping = 1;
+    for (let i = 0; i < index; i++) {
+      if (isOverlapping(allEvents[i])) {
+        numOverlapping++;
+      }
+    }
+    setWidth((1 / numOverlapping) * 100);
+    setLeft(340 * (1 - 1 / numOverlapping));
     setHeight(calculateHeight());
   }, []);
+
+  const isOverlapping = (eventDetails) => {
+    const [currStartHr, currStartMin] = eventData.startTime.split(":");
+    const [currEndHr, currEndMin] = eventData.endTime.split(":");
+    const [eventStartHr, eventStartMin] = eventDetails.startTime.split(":");
+    const [eventEndHr, eventEndMin] = eventDetails.endTime.split(":");
+    const currEventStart24Hrs = parseInt(
+      currStartHr.toString() + currStartMin.toString()
+    );
+    const currEventEnd24Hrs = parseInt(
+      currEndHr.toString() + currEndMin.toString()
+    );
+    const eventStart24Hrs = parseInt(
+      eventStartHr.toString() + eventStartMin.toString()
+    );
+    const eventEnd24Hrs = parseInt(
+      eventEndHr.toString() + eventEndMin.toString()
+    );
+
+    if (
+      (eventStart24Hrs >= currEventStart24Hrs &&
+        eventStart24Hrs < currEventEnd24Hrs) ||
+      (eventEnd24Hrs > currEventStart24Hrs &&
+        eventEnd24Hrs <= currEventEnd24Hrs)
+    ) {
+      return true;
+    }
+  };
 
   const calculateHeight = () => {
     const [startHr, startMin] = convertArrToNum(startTime.split(":"));
@@ -31,8 +67,9 @@ export const Event = ({ eventData }) => {
     <div
       style={{
         top: `${top}px`,
+        left: `${left}px`,
         height: `${height}px`,
-        width: "100%",
+        width: `${width}%`,
         backgroundColor: color,
         position: "absolute",
         zIndex: 5,
