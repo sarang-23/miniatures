@@ -4,7 +4,7 @@ body{
 }
 .parent-1{
   width: 200px;
-  height: 200px;
+  aspect-ratio: 1/1;
   border : 1px solid blue;
   margin-bottom: 50px;
   position: static;
@@ -12,7 +12,7 @@ body{
 }
 .parent-2{
   width: 200px;
-  height: 200px;
+  aspect-ratio: 1/1;
   border : 1px solid blue;
   position: fixed;
   right: 400px;
@@ -22,8 +22,9 @@ body{
 }
 .parent-3{
   width: 200px;
-  height: 200px;
   border : 1px solid blue;
+  aspect-ratio: 16/9;
+
   margin-bottom: 50px;
   position: absolute;
   left: 300px;
@@ -32,16 +33,18 @@ body{
 }
 .parent-4{
   width: 200px;
-  height: 200px;
   border : 1px solid blue;
+  aspect-ratio: 1/1;
+
   margin-bottom: 50px;
   background-color: #f0f0f0;
   position: sticky;
 }
 .parent-5{
   width: 200px;
-  height: 200px;
   border : 1px solid blue;
+  aspect-ratio: 1/1;
+
   background-color: #f0f0f0;
   position: relative;
   left: 400px;
