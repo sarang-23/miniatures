@@ -9,4 +9,5 @@ I have minitature projects in this that help me learn new and core concepts.
 - e.currentTarget targets the element that is responsible for handling the event and
   not the sub elements.
 
-- Relay implementations
+## Relay implementations 
+Relay Environment, queries, and fragments
