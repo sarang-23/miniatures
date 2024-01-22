@@ -8,3 +8,5 @@ I have minitature projects in this that help me learn new and core concepts.
 - Interval and timeout difference. Interval fires the function after every interval.
 - e.currentTarget targets the element that is responsible for handling the event and
   not the sub elements.
+
+- Relay implementations
